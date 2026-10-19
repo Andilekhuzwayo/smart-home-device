@@ -1,6 +1,5 @@
 open class SmartDevice(val name: String, val category: String) {
 
-
     var deviceStatus = "online"
 
     fun turnOn() {
@@ -40,7 +39,7 @@ class SmartTvDevice(deviceNAme: String, deviceCategory: String) :
     }
 }
 
-class SmartLightDevice(deviceName: String, DeviceCategory: String) :
+class SmartLightDevice(deviceName: String, deviceCategory: String) :
         SmartDevice(name = deviceName, category = deviceCategory) {
     var brightnessLevel = 0
         set(value) {
@@ -54,8 +53,29 @@ class SmartLightDevice(deviceName: String, DeviceCategory: String) :
     }
 }
 
-class SmartHome(val smartTvDevice: SmartTvDevice) {
+class SmartHome(
+    val smartTvDevice: SmartTvDevice,
+    val smartLightDevice: SmartLightDevice
+) {
+    fun turnOnTv(){
+        smartTvDevice.turnOn()
+    }
 
+    fun turnOffTv(){
+        smartTvDevice.turnOff()
+    }
+
+    fun increaseTvVolume(){
+        smartTvDevice.increaseSpeakerVolume()
+    }
+
+    fun changeChannelToNext(){
+        smartTvDevice.changeChannel()
+    }
+
+    fun increaseLightBrightness(){
+        smartLightDevice.increaseBrightness()
+    }
 }
 
 fun main() {
