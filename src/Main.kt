@@ -1,19 +1,22 @@
 open class SmartDevice(val name: String, val category: String) {
 
     var deviceStatus = "online"
+    open  val deviceType = "unknown"
 
     open fun turnOn() {
-         println("Smart device is turned on")
+        deviceStatus = "on"
      }
     open fun turnOff() {
-        println("Smart device is turned off")
+        deviceStatus = "off"
+
     }
 }
 
-// inheritance
+// inheritance of the smartDevice superclass
 class SmartTvDevice(deviceNAme: String, deviceCategory: String) :
     SmartDevice(name = deviceNAme, category =  deviceCategory) {
 
+    override val deviceType = "Smart Tv"
     var speakerVolume = 2
         set(value) {
             if(value in 0..100) {
@@ -35,21 +38,45 @@ class SmartTvDevice(deviceNAme: String, deviceCategory: String) :
 
     fun changeChannel() {
         channelNmber++
-        println("channel has been changed to $channelNmber")
+        println("channel has been changed to $channelNmber.")
+    }
+
+    override fun turnOn() {
+        super.turnOn()
+        print("$name is turned on. The volume is set to $speakerVolume and channel number is $channelNmber. \n")
+    }
+
+    override fun turnOff() {
+        super.turnOff()
+        print("$name turned off. ")
     }
 }
 
 class SmartLightDevice(deviceName: String, deviceCategory: String) :
         SmartDevice(name = deviceName, category = deviceCategory) {
+    override val deviceType = "Smart Light"
     var brightnessLevel = 0
         set(value) {
             if (value in 0..100) {
                 field = value
             }
         }
+
     fun increaseBrightness() {
         brightnessLevel++
         println("brightness increased to $brightnessLevel")
+    }
+
+    override fun turnOn() {
+        super.turnOn()
+        brightnessLevel = 2
+        println("$name turned on. The brightness level $brightnessLevel. ")
+    }
+
+    override fun turnOff() {
+        super.turnOff()
+        brightnessLevel = 0
+        println("smart light turned off")
     }
 }
 
@@ -57,29 +84,31 @@ class SmartHome(
     val smartTvDevice: SmartTvDevice,
     val smartLightDevice: SmartLightDevice
 ) {
-    fun turnOnTv(){
+    fun turnOnTv() {
         smartTvDevice.turnOn()
     }
 
-    fun turnOffTv(){
+    fun turnOffTv() {
         smartTvDevice.turnOff()
     }
 
-    fun increaseTvVolume(){
+    fun increaseTvVolume() {
         smartTvDevice.increaseSpeakerVolume()
     }
 
-    fun changeChannelToNext(){
+    fun changeChannelToNext() {
         smartTvDevice.changeChannel()
     }
 
-    fun increaseLightBrightness(){
+    fun increaseLightBrightness() {
         smartLightDevice.increaseBrightness()
     }
 }
 
 fun main() {
-    val smartTvDevie = SmartDevice(name = "andriodTv", category = "Entertainment")
-    smartTvDevie.turnOn()
-    smartTvDevie.turnOff()
+    var smartDevice: SmartDevice = SmartTvDevice("andriodTv","Entertainment")
+    smartDevice.turnOn()
+
+    smartDevice = SmartLightDevice("Google light","Utility")
+    smartDevice.turnOn()
 }
