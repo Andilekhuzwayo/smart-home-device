@@ -120,15 +120,21 @@ class SmartHome(
     }
 
     fun increaseTvVolume() {
-        smartTvDevice.increaseSpeakerVolume()
+        if (smartTvDevice.deviceStatus == "on") {
+            smartTvDevice.increaseSpeakerVolume()
+        }
     }
 
     fun changeChannelToNext() {
-        smartTvDevice.changeChannel()
+        if (smartTvDevice.deviceStatus == "on") {
+            smartTvDevice.changeChannel()
+        }
     }
 
     fun increaseLightBrightness() {
-        smartLightDevice.increaseBrightness()
+        if(smartLightDevice.deviceStatus == "on") {
+            smartLightDevice.increaseBrightness()
+        }
     }
 }
 
