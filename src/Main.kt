@@ -74,6 +74,11 @@ class SmartLightDevice(deviceName: String, deviceCategory: String) :
         println("brightness increased to $brightnessLevel")
     }
 
+    fun decreaseBrightness() {
+        brightnessLevel--
+        println("brightness decreased by $brightnessLevel")
+    }
+
     override fun turnOn() {
         super.turnOn()
         brightnessLevel = 2
